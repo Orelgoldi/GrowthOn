@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GrowthOn Marketing – From Social Network to Real Growth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── FLOATING CTA ── -->
+  <a href="#contact" class="float-cta">
+    <span class="btn-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 7L7 17M7 7h10v10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <span class="btn-sep"></span>
+    <span class="btn-label">Book a Call</span>
+  </a>
+
+  <!-- ── NAV ── -->
+  <header class="nav" id="nav">
+    <div class="nav__inner container">
+      <a href="#" class="nav__logo">
+        <img src="logo-white.svg" alt="GrowthOn Marketing" height="38" />
+      </a>
+      <nav class="nav__links">
+        <a href="#about">About</a>
+        <a href="#values">Services</a>
+        <a href="#testimonials">Results</a>
+        <a href="#contact" class="btn btn--sm">
+            <span class="btn-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M17 7L7 17M7 7h10v10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="btn-sep"></span>
+            <span class="btn-label">Contact Us</span>
+          </a>
+      </nav>
+      <button class="nav__burger" id="burger" aria-label="menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── MOBILE NAV MENU ── -->
+  <nav class="nav__mobile-menu" id="mobileMenu">
+    <a href="#about"        onclick="closeMobileMenu()">About</a>
+    <a href="#values"       onclick="closeMobileMenu()">Services</a>
+    <a href="#testimonials" onclick="closeMobileMenu()">Results</a>
+    <a href="#contact"      onclick="closeMobileMenu()">Contact Us</a>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="hero" id="hero">
+    <div class="hero__grid"></div>
+    <div class="hero__glow hero__glow--1"></div>
+    <div class="hero__glow hero__glow--2"></div>
+
+    <div class="hero__inner container">
+      <div class="hero__content">
+<h1 class="hero__title">
+          From Social<br/>
+          Network to<br/>
+          <em>Real Growth</em>
+        </h1>
+
+        <p class="hero__body">
+          Precise, proactive, and programmatic — GrowthOn's three Ps form the foundation of a
+          growth framework that strategically positions our clients across professional networks,
+          builds robust targeted relationships, and transforms them into quantifiable opportunity.
+        </p>
+
+        <div class="hero__actions">
+          <a href="#contact" class="btn">
+            <span class="btn-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 7L7 17M7 7h10v10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="btn-sep"></span>
+            <span class="btn-label">Contact Us</span>
+          </a>
+          <a href="#values" class="btn btn--ghost">See How It Works</a>
+        </div>
+      </div>
+
+      <div class="hero__mosaic">
+        <img src="about-visual.png" alt="GrowthOn Dashboard" class="hero__mosaic-img" />
+        <svg class="hero__mosaic-corners" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <polyline points="0,12 0,0 12,0"       fill="none" stroke="var(--mint)" stroke-width=".8" stroke-linecap="round"/>
+          <polyline points="88,0 100,0 100,12"   fill="none" stroke="var(--blue)" stroke-width=".8" stroke-linecap="round"/>
+          <polyline points="0,88 0,100 12,100"   fill="none" stroke="var(--blue)" stroke-width=".8" stroke-linecap="round"/>
+          <polyline points="88,100 100,100 100,88" fill="none" stroke="var(--mint)" stroke-width=".8" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="hero__scroll-hint">
+      <div class="hero__scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ── CLIENTS BAND ── -->
+  <section class="clients">
+    <div class="container clients__inner">
+      <div class="clients__label-box">
+        <div class="clients__label-text">
+          Trusted by <strong>500+</strong><br/>
+          Revenue-Focused Companies
+        </div>
+      </div>
+      <!-- Desktop grid -->
+      <div class="clients__logos">
+        <div class="clients__logo-wrap">
+          <img src="logos/logo-1.png" alt="Mivne" class="clients__logo" />
+        </div>
+        <div class="clients__logo-wrap">
+          <img src="logos/logo-bsr.png" alt="BSR" class="clients__logo clients__logo--inv" />
+        </div>
+        <div class="clients__logo-wrap">
+          <img src="logos/logo-israel-canada.png" alt="Israel Canada" class="clients__logo clients__logo--inv" />
+        </div>
+        <div class="clients__logo-wrap">
+          <img src="logos/logo-4.png" alt="JTLV Investments" class="clients__logo" />
+        </div>
+        <div class="clients__logo-wrap">
+          <img src="logos/logo-300.png" alt="דוניץ אלעד" class="clients__logo" />
+        </div>
+      </div>
+    </div>
+    <!-- Mobile marquee -->
+    <div class="clients__marquee">
+      <div class="clients__marquee-track">
+        <div class="clients__logo-wrap"><img src="logos/logo-1.png" alt="Mivne" class="clients__logo" /></div>
+        <div class="clients__logo-wrap"><img src="logos/logo-bsr.png" alt="BSR" class="clients__logo clients__logo--inv" /></div>
+        <div class="clients__logo-wrap"><img src="logos/logo-israel-canada.png" alt="Israel Canada" class="clients__logo clients__logo--inv" /></div>
+        <div class="clients__logo-wrap"><img src="logos/logo-4.png" alt="JTLV Investments" class="clients__logo" /></div>
+        <div class="clients__logo-wrap"><img src="logos/logo-300.png" alt="דוניץ אלעד" class="clients__logo" /></div>
+        <!-- duplicate for seamless loop -->
+        <div class="clients__logo-wrap"><img src="logos/logo-1.png" alt="Mivne" class="clients__logo" /></div>
+        <div class="clients__logo-wrap"><img src="logos/logo-bsr.png" alt="BSR" class="clients__logo clients__logo--inv" /></div>
+        <div class="clients__logo-wrap"><img src="logos/logo-israel-canada.png" alt="Israel Canada" class="clients__logo clients__logo--inv" /></div>
+        <div class="clients__logo-wrap"><img src="logos/logo-4.png" alt="JTLV Investments" class="clients__logo" /></div>
+        <div class="clients__logo-wrap"><img src="logos/logo-300.png" alt="דוניץ אלעד" class="clients__logo" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT STRIP ── -->
+  <section class="about" id="about">
+    <div class="container about__inner">
+
+      <div class="about__left">
+        <div class="section-label" data-reveal>About GrowthOn</div>
+        <h2 class="about__title" data-reveal>
+          Growing with<br/>
+          <span class="text-blue">GrowthOn</span>
+        </h2>
+        <p class="about__body" data-reveal>
+          GrowthOn Marketing works closely with its real estate clients to build highly effective
+          social selling and relationship-driven marketing processes, carefully cultivating direct
+          access to potential investors, buyers, tenants, and strategic partners.
+        </p>
+        <p class="about__body" data-reveal>
+          A full-service marketing data agency, we offer profile development and positioning,
+          decision-maker outreach, social selling to foster long-term relationships, and
+          account-based marketing (ABM) for penetrating target organizations. Specializing in
+          LinkedIn — the world's largest platform for corporate engagement — we apply a proven
+          lead generation methodology particularly effective for real estate firms targeting both
+          local and international markets.
+        </p>
+        <a href="#contact" class="btn btn--blue" data-reveal>
+          <span class="btn-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 7L7 17M7 7h10v10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="btn-sep"></span>
+          <span class="btn-label">Work With Us</span>
+        </a>
+      </div>
+
+      <div class="about__right" data-reveal>
+        <div class="about__beam-wrap" id="beamWrap">
+          <svg class="beam-svg" id="beamSvg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs></defs></svg>
+
+          <div class="bnode bnode--in" id="bn-li" style="top:17%;left:11%">
+            <svg viewBox="0 0 24 24"><path fill="var(--mint)" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            <span class="bnode__lbl">LinkedIn</span>
+          </div>
+          <div class="bnode bnode--in" id="bn-em" style="top:50%;left:7%">
+            <svg viewBox="0 0 24 24"><path fill="var(--mint)" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <span class="bnode__lbl">Email</span>
+          </div>
+          <div class="bnode bnode--in" id="bn-co" style="top:83%;left:11%">
+            <svg viewBox="0 0 24 24"><path fill="var(--mint)" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            <span class="bnode__lbl">Content</span>
+          </div>
+
+          <div class="bnode bnode--hub" id="bn-hub" style="top:50%;left:50%">
+            <svg viewBox="0 0 32 32" fill="none">
+              <polyline points="4,24 10,17 16,20 22,11 28,7" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="28" cy="7" r="3.5" fill="var(--mint)"/>
+              <circle cx="4" cy="24" r="2.5" fill="rgba(255,255,255,.4)"/>
+            </svg>
+          </div>
+
+          <div class="bnode bnode--out" id="bn-lead" style="top:17%;left:89%">
+            <svg viewBox="0 0 24 24"><path fill="#818cf8" d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+            <span class="bnode__lbl">Leads</span>
+          </div>
+          <div class="bnode bnode--out" id="bn-meet" style="top:50%;left:93%">
+            <svg viewBox="0 0 24 24"><path fill="#818cf8" d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-2 .9-2 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
+            <span class="bnode__lbl">Meetings</span>
+          </div>
+          <div class="bnode bnode--out" id="bn-rev" style="top:83%;left:89%">
+            <svg viewBox="0 0 24 24"><path fill="#818cf8" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+            <span class="bnode__lbl">Revenue</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ── VALUES – 4 LAYERS ── -->
+  <section class="values" id="values">
+    <div class="container">
+      <div class="values__header">
+        <div class="section-label section-label--center" data-reveal>How We Do It</div>
+        <h2 class="values__title" data-reveal>Four Layers,<br/><span>Fourfold Lead Generation</span></h2>
+        <p class="values__sub" data-reveal>
+          More than anything else, real estate is about building trusted relationships. Through LinkedIn and other channels, GrowthOn offers real estate firms the means to engage directly and meaningfully with relevant organizations and stakeholders worldwide. We excel at converting such engagement into measurable growth through a disciplined, layered methodology.
+        </p>
+      </div>
+
+      <div class="values__grid">
+
+        <div class="svc-card" data-reveal>
+          <svg class="svc-card__icon" width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="22" r="12" stroke="#2300D0" stroke-width="3"/>
+            <path d="M8 56c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="#2300D0" stroke-width="3" stroke-linecap="round"/>
+            <path d="M44 18l4 4M20 18l-4 4" stroke="#05E9B4" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div class="svc-card__label">Strong Foundations</div>
+          <div class="svc-card__sublabel">Profile Development &amp; Positioning</div>
+          <div class="svc-card__desc">We build professional and corporate profiles that speak to clearly defined target audiences and form consistent, unified executive and corporate branding. Through structured, ongoing profile activity, we maintain a visible and credible presence that strengthens authority over time.</div>
+        </div>
+
+        <div class="svc-card" data-reveal>
+          <svg class="svc-card__icon" width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <path d="M56 8L8 28l16 8 32-28zM56 8L36 56 24 36" stroke="#2300D0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="svc-card__label">Pipeline Construction</div>
+          <div class="svc-card__sublabel">Decision-Maker Outreach</div>
+          <div class="svc-card__desc">Precise, proactive outreach to managers and senior decision-makers across defined target segments to selectively and strategically expand our clients' networks. Each connection establishes credibility early and lays the groundwork for further engagement.</div>
+        </div>
+
+        <div class="svc-card" data-reveal>
+          <svg class="svc-card__icon" width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <path d="M8 48l14-18 12 10 22-32" stroke="#2300D0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="56" cy="8" r="5" fill="#2300D0"/>
+            <circle cx="22" cy="30" r="4" fill="#05E9B4"/>
+          </svg>
+          <div class="svc-card__label">Relationship Architecture</div>
+          <div class="svc-card__sublabel">Social Selling</div>
+          <div class="svc-card__desc">With your direction, we'll develop consistent, value-driven content that establishes long-term relationships with stakeholders, reinforces authority and relevance over time, and sets you apart from your competitors.</div>
+        </div>
+
+        <div class="svc-card" data-reveal>
+          <svg class="svc-card__icon" width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="32" r="24" stroke="#2300D0" stroke-width="3"/>
+            <circle cx="32" cy="32" r="13" stroke="#2300D0" stroke-width="3"/>
+            <circle cx="32" cy="32" r="4" fill="#2300D0"/>
+            <path d="M32 8v8M32 48v8M8 32h8M48 32h8" stroke="#05E9B4" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <div class="svc-card__label">Asset Development</div>
+          <div class="svc-card__sublabel">Account-Based Marketing</div>
+          <div class="svc-card__desc">Deepen and solidify engagement with key accounts. Expanding touchpoints across decision-makers strengthens presence, reinforces positioning, and cultivates new and often unexpected opportunities.</div>
+        </div>
+
+      </div>
+
+      <div class="values__cta" data-reveal>
+        <a href="#contact" class="btn">
+          <span class="btn-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 7L7 17M7 7h10v10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="btn-sep"></span>
+          <span class="btn-label">Contact Me</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section class="testimonials" id="testimonials">
+    <div class="container testimonials__header-wrap">
+      <div class="section-label section-label--center" data-reveal>Results That Speak</div>
+      <h2 class="testimonials__title" data-reveal>
+        Clients don't just grow.<br/>They break records.
+      </h2>
+    </div>
+
+    <!-- Row 1 – scrolls left -->
+    <div class="marquee-row">
+      <div class="marquee-track marquee-track--fwd">
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=11" class="tcard__avatar"/><div><div class="tcard__name">Alex R. <span class="tcard__badge">✓</span></div><div class="tcard__handle">CEO, PropTech Firm</div></div></div><p class="tcard__text">GrowthOn's three-P framework gave us access to decision-makers we couldn't reach for years. Absolutely game-changing for our pipeline.</p></div>
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=5" class="tcard__avatar"/><div><div class="tcard__name">Dana M. <span class="tcard__badge">✓</span></div><div class="tcard__handle">Managing Director, Real Estate</div></div></div><p class="tcard__text">Within 6 months we achieved a 35% revenue increase and closed our first international enterprise deals. The ROI speaks for itself.</p></div>
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=3" class="tcard__avatar"/><div><div class="tcard__name">Roi K. <span class="tcard__badge">✓</span></div><div class="tcard__handle">VP Sales, SaaS Company</div></div></div><p class="tcard__text">Itzik and the team transformed how we think about LinkedIn. It's now our #1 pipeline source, generating warm leads every single week.</p></div>
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=20" class="tcard__avatar"/><div><div class="tcard__name">Eran L. <span class="tcard__badge">✓</span></div><div class="tcard__handle">COO, Investment Group</div></div></div><p class="tcard__text">From profile authority to outreach cadences — everything is intentional. We've never had marketing this precise before.</p></div>
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=25" class="tcard__avatar"/><div><div class="tcard__name">Tamar O. <span class="tcard__badge">✓</span></div><div class="tcard__handle">CEO, PropCo Israel</div></div></div><p class="tcard__text">I'd recommend GrowthOn to any B2B company serious about results. They don't just advise — they execute alongside you every step.</p></div>
+        <!-- duplicate for seamless loop -->
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=11" class="tcard__avatar"/><div><div class="tcard__name">Alex R. <span class="tcard__badge">✓</span></div><div class="tcard__handle">CEO, PropTech Firm</div></div></div><p class="tcard__text">GrowthOn's three-P framework gave us access to decision-makers we couldn't reach for years. Absolutely game-changing for our pipeline.</p></div>
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=5" class="tcard__avatar"/><div><div class="tcard__name">Dana M. <span class="tcard__badge">✓</span></div><div class="tcard__handle">Managing Director, Real Estate</div></div></div><p class="tcard__text">Within 6 months we achieved a 35% revenue increase and closed our first international enterprise deals. The ROI speaks for itself.</p></div>
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=3" class="tcard__avatar"/><div><div class="tcard__name">Roi K. <span class="tcard__badge">✓</span></div><div class="tcard__handle">VP Sales, SaaS Company</div></div></div><p class="tcard__text">Itzik and the team transformed how we think about LinkedIn. It's now our #1 pipeline source, generating warm leads every single week.</p></div>
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=20" class="tcard__avatar"/><div><div class="tcard__name">Eran L. <span class="tcard__badge">✓</span></div><div class="tcard__handle">COO, Investment Group</div></div></div><p class="tcard__text">From profile authority to outreach cadences — everything is intentional. We've never had marketing this precise before.</p></div>
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=25" class="tcard__avatar"/><div><div class="tcard__name">Tamar O. <span class="tcard__badge">✓</span></div><div class="tcard__handle">CEO, PropCo Israel</div></div></div><p class="tcard__text">I'd recommend GrowthOn to any B2B company serious about results. They don't just advise — they execute alongside you every step.</p></div>
+      </div>
+    </div>
+
+    <!-- Row 2 – scrolls right (reverse) -->
+    <div class="marquee-row marquee-row--pt">
+      <div class="marquee-track marquee-track--rev">
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=9" class="tcard__avatar"/><div><div class="tcard__name">Michal S. <span class="tcard__badge">✓</span></div><div class="tcard__handle">Founder, Growth Consulting</div></div></div><p class="tcard__text">I was skeptical about an external CMO model, but GrowthOn proved that a focused partner beats an in-house hire hands down, every time.</p></div>
+        <div class="tcard tcard--hl"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=7" class="tcard__avatar"/><div><div class="tcard__name">Yonatan B. <span class="tcard__badge tcard__badge--dark">✓</span></div><div class="tcard__handle">Head of Business Dev</div></div></div><p class="tcard__text">The ABM strategy they built for us moved entire buying committees. We closed our biggest deal ever — 4 months after onboarding.</p></div>
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=16" class="tcard__avatar"/><div><div class="tcard__name">Noa T. <span class="tcard__badge">✓</span></div><div class="tcard__handle">CMO, B2B SaaS</div></div></div><p class="tcard__text">GrowthOn's social selling methodology is methodical, warm, and it works. Our professional network is now a real revenue engine.</p></div>
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=33" class="tcard__avatar"/><div><div class="tcard__name">Lior P. <span class="tcard__badge">✓</span></div><div class="tcard__handle">VP Marketing, FinTech</div></div></div><p class="tcard__text">Precise, proactive, programmatic — it's not just a tagline. The three-P framework is a real methodology that delivers measurable results.</p></div>
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=44" class="tcard__avatar"/><div><div class="tcard__name">Shira N. <span class="tcard__badge">✓</span></div><div class="tcard__handle">Director, Real Estate Group</div></div></div><p class="tcard__text">GrowthOn turned our LinkedIn presence from zero to our top-performing marketing channel in under 90 days. Remarkable execution.</p></div>
+        <!-- duplicate -->
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=9" class="tcard__avatar"/><div><div class="tcard__name">Michal S. <span class="tcard__badge">✓</span></div><div class="tcard__handle">Founder, Growth Consulting</div></div></div><p class="tcard__text">I was skeptical about an external CMO model, but GrowthOn proved that a focused partner beats an in-house hire hands down, every time.</p></div>
+        <div class="tcard tcard--hl"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=7" class="tcard__avatar"/><div><div class="tcard__name">Yonatan B. <span class="tcard__badge tcard__badge--dark">✓</span></div><div class="tcard__handle">Head of Business Dev</div></div></div><p class="tcard__text">The ABM strategy they built for us moved entire buying committees. We closed our biggest deal ever — 4 months after onboarding.</p></div>
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=16" class="tcard__avatar"/><div><div class="tcard__name">Noa T. <span class="tcard__badge">✓</span></div><div class="tcard__handle">CMO, B2B SaaS</div></div></div><p class="tcard__text">GrowthOn's social selling methodology is methodical, warm, and it works. Our professional network is now a real revenue engine.</p></div>
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=33" class="tcard__avatar"/><div><div class="tcard__name">Lior P. <span class="tcard__badge">✓</span></div><div class="tcard__handle">VP Marketing, FinTech</div></div></div><p class="tcard__text">Precise, proactive, programmatic — it's not just a tagline. The three-P framework is a real methodology that delivers measurable results.</p></div>
+        <div class="tcard"><div class="tcard__head"><img src="https://i.pravatar.cc/150?img=44" class="tcard__avatar"/><div><div class="tcard__name">Shira N. <span class="tcard__badge">✓</span></div><div class="tcard__handle">Director, Real Estate Group</div></div></div><p class="tcard__text">GrowthOn turned our LinkedIn presence from zero to our top-performing marketing channel in under 90 days. Remarkable execution.</p></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── CTA / CONTACT ── -->
+  <section class="contact" id="contact">
+    <div class="contact__hero">
+      <div class="contact__hero-img">
+        <img src="https://growthon-m.com/wp-content/uploads/2024/02/cupOfCoffee.png" alt="" />
+      </div>
+      <div class="contact__hero-text" data-reveal>
+        <h2 class="contact__title">Get a custom<br/><span>GrowthOn plan</span></h2>
+        <form class="contact__form" id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Your full name" required />
+            </div>
+            <div class="form-group">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company" placeholder="Your company" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="+972..." />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">How can we help?</label>
+            <textarea id="message" name="message" rows="3" placeholder="Tell us about your goals..."></textarea>
+          </div>
+          <button type="submit" class="btn">
+            <span class="btn-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 7L7 17M7 7h10v10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="btn-sep"></span>
+            <span class="btn-label">Send Message</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <img src="logo-white.svg" alt="GrowthOn Marketing" height="32" class="footer__logo" />
+        <p class="footer__tag">Your partner for success</p>
+      </div>
+      <div class="footer__links">
+        <a href="#about">About</a>
+        <a href="#values">Services</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <p class="footer__copy">© 2026 GrowthOn Marketing</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
