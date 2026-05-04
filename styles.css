@@ -567,18 +567,12 @@ img { display: block; max-width: 100%; }
 /* ============================================================
    FOOTER
    ============================================================ */
-.footer { background: var(--blue-dk); padding: 48px 0 36px; }
-.footer__inner {
-  display: flex; align-items: flex-start; justify-content: space-between;
-  flex-wrap: wrap; gap: 28px; padding-bottom: 36px;
-  border-bottom: 1px solid rgba(255,255,255,.07); margin-bottom: 28px;
+.footer {
+  background: var(--blue-dk);
+  padding: 16px 0;
+  text-align: center;
 }
-.footer__logo { margin-bottom: 10px; }
-.footer__tag { font-size: 13px; color: rgba(255,255,255,.3); }
-.footer__links { display: flex; gap: 28px; }
-.footer__links a { font-family: var(--font-h); font-size: 14px; font-weight: 500; color: rgba(255,255,255,.45); transition: color .2s; }
-.footer__links a:hover { color: var(--mint); }
-.footer__copy { font-size: 12px; color: rgba(255,255,255,.2); }
+.footer__copy { font-size: 11px; color: rgba(255,255,255,.35); }
 
 /* ============================================================
    RESPONSIVE
