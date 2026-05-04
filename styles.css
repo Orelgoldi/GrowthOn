@@ -731,8 +731,8 @@ img { display: block; max-width: 100%; }
   .contact__hero-text { padding: 36px 20px 32px; align-items: stretch; }
   .contact__title { font-size: clamp(24px, 8vw, 34px); }
   .contact__form { margin-top: 16px; width: 100%; }
-  .contact__hero-img { min-height: 220px; align-items: center; }
-  .contact__hero-img img { width: 55%; transform: translateY(-10%); }
+  .contact__hero-img { min-height: 260px; align-items: center; }
+  .contact__hero-img img { width: 48%; transform: translateY(-8%); }
   .form-group input, .form-group textarea { font-size: 16px; }
 
   /* Footer */
