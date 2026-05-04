@@ -263,70 +263,58 @@ img { display: block; max-width: 100%; }
 /* ============================================================
    CLIENTS BAND
    ============================================================ */
-.clients { background: var(--grey-bg); border-top: 1px solid var(--grey-bdr); border-bottom: 1px solid var(--grey-bdr); padding: 0; }
-.clients__inner {
-  display: flex; align-items: center; gap: 0;
-  min-height: 100px;
+.clients {
+  background: var(--grey-bg);
+  border-top: 1px solid var(--grey-bdr);
+  border-bottom: 1px solid var(--grey-bdr);
+  padding: 20px 0 0;
 }
-.clients__label-box {
-  flex-shrink: 0; border: 1px solid var(--grey-bdr);
-  padding: 14px 22px; margin: 16px 0; margin-right: 48px;
+.clients__header {
+  padding-bottom: 16px;
 }
 .clients__label-text {
-  font-family: var(--font-h); font-size: 12px; font-weight: 600;
-  color: var(--dark); line-height: 1.5; white-space: nowrap;
+  font-family: var(--font-h); font-size: 12px; font-weight: 500;
+  color: var(--grey-txt); letter-spacing: .02em;
 }
-.clients__label-text strong { color: var(--blue); font-weight: 700; }
+.clients__label-text strong { color: var(--dark); font-weight: 700; }
 
-/* Mobile marquee — hidden on desktop */
 .clients__marquee {
-  display: none;
+  display: block;
   overflow: hidden; position: relative; width: 100%;
 }
 .clients__marquee::before, .clients__marquee::after {
-  content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none;
+  content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none;
 }
 .clients__marquee::before { left: 0; background: linear-gradient(to right, var(--grey-bg), transparent); }
 .clients__marquee::after  { right: 0; background: linear-gradient(to left,  var(--grey-bg), transparent); }
 .clients__marquee-track {
   display: flex; align-items: center;
   width: max-content;
-  animation: clients-scroll 18s linear infinite;
-}
-.clients__marquee-track .clients__logo-wrap {
-  width: 120px; height: 60px;
-  border: none; border-right: 1px solid var(--grey-bdr);
-  flex-shrink: 0;
+  animation: clients-scroll 20s linear infinite;
 }
 @keyframes clients-scroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 
-.clients__logos {
-  display: flex; align-items: center; gap: 0;
-  flex: 1; flex-wrap: wrap;
-}
-/* Each logo sits in a fixed-size cell so all logos read as the same visual weight */
 .clients__logo-wrap {
   display: flex; align-items: center; justify-content: center;
-  width: 210px; height: 88px; flex-shrink: 0;
-  padding: 16px 24px;
-  border-right: 1px solid var(--grey-bdr);
+  width: 200px; height: 88px; flex-shrink: 0;
+  padding: 18px 28px;
+  border-left: 1px solid var(--grey-bdr);
 }
-.clients__logo-wrap:first-child { border-left: 1px solid var(--grey-bdr); }
 .clients__logo {
   width: 100%; height: 100%;
   object-fit: contain;
   mix-blend-mode: multiply;
-  filter: grayscale(1) opacity(.6);
+  filter: grayscale(1) opacity(.55);
   transition: filter .25s;
   display: block;
 }
 .clients__logo-wrap:hover .clients__logo { filter: grayscale(0) opacity(1); }
 .clients__logo--inv {
   mix-blend-mode: normal;
-  filter: invert(1) grayscale(1) opacity(.6);
+  filter: invert(1) grayscale(1) opacity(.55);
 }
 .clients__logo-wrap:hover .clients__logo--inv { filter: invert(1) grayscale(0) opacity(1); }
 
@@ -648,10 +636,7 @@ img { display: block; max-width: 100%; }
   .hero__scroll-hint { display: none; }
 
   /* Clients */
-  .clients__inner { flex-direction: column; align-items: flex-start; gap: 0; padding: 20px 0 0; min-height: unset; }
-  .clients__label-box { margin-right: 0; margin-bottom: 20px; }
-  .clients__logos { display: none; }
-  .clients__marquee { display: block; padding-bottom: 20px; }
+  .clients__logo-wrap { width: 160px; height: 72px; padding: 14px 20px; }
 
   /* About */
   .about { padding: 72px 0; }
@@ -717,7 +702,8 @@ img { display: block; max-width: 100%; }
   .hero__mosaic { padding: 8px; }
   .hero__mosaic-img { border-radius: 8px; }
 
-  /* Clients — marquee already active from 768px breakpoint */
+  /* Clients */
+  .clients__logo-wrap { width: 140px; height: 64px; padding: 12px 16px; }
 
   /* About */
   .about { padding: 60px 0; }
