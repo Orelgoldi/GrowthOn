@@ -268,6 +268,15 @@ window.addEventListener('resize', () => {
   }, 200);
 });
 
+// ── Safety net: ensure all reveal elements are visible even if ScrollTrigger misfires ──
+setTimeout(() => {
+  document.querySelectorAll('[data-reveal]:not(.is-visible)').forEach(el => {
+    el.classList.add('is-visible');
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0)';
+  });
+}, 2000);
+
 // ── Section scroll-scale transitions (ported from Framer Motion reference) ──
 // Hero inner shrinks + tilts as it exits viewport
 gsap.to('.hero__inner', {
