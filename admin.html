@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GrowthOn Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    :root {
+      --blue:    #2300D0;
+      --blue-dk: #180090;
+      --mint:    #05E9B4;
+      --dark:    #0B0041;
+      --bg:      #f4f5f9;
+      --white:   #ffffff;
+      --border:  #e2e4ed;
+      --txt:     #1a1a2e;
+      --sub:     #6b7280;
+      --danger:  #ef4444;
+      --success: #10b981;
+      --font-h:  'Space Grotesk', sans-serif;
+      --font-b:  'Noto Sans', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body { font-family: var(--font-b); background: var(--bg); color: var(--txt); -webkit-font-smoothing: antialiased; }
+
+    /* ── LOGIN ── */
+    #login-screen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--blue) 100%);
+    }
+    .login-card {
+      background: var(--white); padding: 48px 40px;
+      width: 100%; max-width: 400px;
+      box-shadow: 0 24px 64px rgba(0,0,0,.25);
+    }
+    .login-card img { height: 36px; margin-bottom: 32px; }
+    .login-card h2 { font-family: var(--font-h); font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .login-card p  { font-size: 14px; color: var(--sub); margin-bottom: 28px; }
+    .login-field { margin-bottom: 16px; }
+    .login-field label { display: block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--sub); margin-bottom: 6px; }
+    .login-field input {
+      width: 100%; padding: 12px 14px; border: 1.5px solid var(--border);
+      font-family: var(--font-b); font-size: 14px; outline: none;
+      transition: border-color .2s;
+    }
+    .login-field input:focus { border-color: var(--blue); }
+    .login-btn {
+      width: 100%; padding: 14px; background: var(--blue); color: var(--white);
+      font-family: var(--font-h); font-size: 15px; font-weight: 700;
+      border: none; cursor: pointer; transition: background .2s; margin-top: 8px;
+    }
+    .login-btn:hover { background: var(--blue-dk); }
+    .login-error { color: var(--danger); font-size: 13px; margin-top: 12px; min-height: 18px; }
+
+    /* ── DASHBOARD ── */
+    #dashboard { display: none; height: 100vh; flex-direction: row; }
+    #dashboard.visible { display: flex; }
+
+    .sidebar {
+      width: 240px; flex-shrink: 0;
+      background: var(--dark); display: flex; flex-direction: column;
+      padding: 28px 0;
+    }
+    .sidebar-logo { padding: 0 24px 32px; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .sidebar-logo img { height: 30px; }
+    .sidebar-nav { flex: 1; padding: 20px 12px; display: flex; flex-direction: column; gap: 4px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 14px; background: none; border: none; cursor: pointer;
+      font-family: var(--font-h); font-size: 14px; font-weight: 500;
+      color: rgba(255,255,255,.5); border-radius: 6px;
+      transition: background .15s, color .15s; text-align: left; width: 100%;
+    }
+    .nav-item .icon { font-size: 16px; }
+    .nav-item:hover { background: rgba(255,255,255,.06); color: rgba(255,255,255,.85); }
+    .nav-item.active { background: var(--blue); color: var(--white); }
+    .sidebar-bottom { padding: 16px 12px; border-top: 1px solid rgba(255,255,255,.07); }
+    .logout-btn {
+      display: flex; align-items: center; gap: 8px; width: 100%;
+      padding: 10px 14px; background: none; border: none; cursor: pointer;
+      font-family: var(--font-h); font-size: 13px; font-weight: 500;
+      color: rgba(255,255,255,.35); transition: color .15s;
+    }
+    .logout-btn:hover { color: var(--danger); }
+
+    .main { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+    .main-header {
+      padding: 28px 36px 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .main-header h1 { font-family: var(--font-h); font-size: 22px; font-weight: 700; }
+    .main-header .subtitle { font-size: 13px; color: var(--sub); margin-top: 2px; }
+    .header-actions { display: flex; gap: 10px; }
+    .btn-action {
+      padding: 9px 18px; font-family: var(--font-h); font-size: 13px; font-weight: 600;
+      border: none; cursor: pointer; transition: background .15s, transform .1s;
+    }
+    .btn-action:active { transform: scale(.97); }
+    .btn-primary { background: var(--blue); color: var(--white); }
+    .btn-primary:hover { background: var(--blue-dk); }
+    .btn-secondary { background: var(--bg); color: var(--txt); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: #eaecf4; }
+    .btn-success { background: var(--success); color: var(--white); }
+
+    .panel { display: none; flex: 1; padding: 28px 36px; }
+    .panel.active { display: block; }
+
+    /* ── LEADS ── */
+    .leads-stats { display: flex; gap: 16px; margin-bottom: 24px; }
+    .stat-card {
+      background: var(--white); border: 1px solid var(--border);
+      padding: 20px 24px; flex: 1;
+    }
+    .stat-card .label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--sub); }
+    .stat-card .value { font-family: var(--font-h); font-size: 32px; font-weight: 700; color: var(--blue); margin-top: 4px; }
+
+    .table-card { background: var(--white); border: 1px solid var(--border); overflow: hidden; }
+    .table-toolbar {
+      padding: 14px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .search-input {
+      padding: 8px 12px; border: 1px solid var(--border); font-size: 13px;
+      font-family: var(--font-b); outline: none; width: 240px;
+    }
+    .search-input:focus { border-color: var(--blue); }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+      padding: 11px 16px; text-align: left; font-family: var(--font-h);
+      font-size: 11px; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--sub);
+      background: #fafbff; border-bottom: 1px solid var(--border);
+    }
+    tbody td { padding: 13px 16px; border-bottom: 1px solid var(--border); vertical-align: top; max-width: 240px; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #fafbff; }
+    .td-email { color: var(--blue); }
+    .td-date { color: var(--sub); white-space: nowrap; }
+    .td-msg { color: var(--sub); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .empty-row td { text-align: center; padding: 48px; color: var(--sub); font-style: italic; }
+    .delete-btn {
+      background: none; border: none; cursor: pointer; color: #ccc;
+      font-size: 16px; padding: 2px 6px; transition: color .15s;
+    }
+    .delete-btn:hover { color: var(--danger); }
+
+    /* ── CONTENT EDITOR ── */
+    .content-sections { display: flex; flex-direction: column; gap: 16px; }
+    .cs-card { background: var(--white); border: 1px solid var(--border); }
+    .cs-header {
+      padding: 16px 20px; display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; user-select: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .cs-header h3 { font-family: var(--font-h); font-size: 14px; font-weight: 700; }
+    .cs-toggle { font-size: 18px; color: var(--sub); transition: transform .2s; }
+    .cs-card.open .cs-toggle { transform: rotate(180deg); }
+    .cs-body { padding: 20px; display: none; flex-direction: column; gap: 16px; }
+    .cs-card.open .cs-body { display: flex; }
+    .cs-field label { display: block; font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--sub); margin-bottom: 6px; }
+    .cs-field input, .cs-field textarea {
+      width: 100%; padding: 10px 12px; border: 1.5px solid var(--border);
+      font-family: var(--font-b); font-size: 14px; outline: none; resize: vertical;
+      transition: border-color .2s;
+    }
+    .cs-field input:focus, .cs-field textarea:focus { border-color: var(--blue); }
+    .cs-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .save-bar {
+      position: sticky; bottom: 0; padding: 16px 36px;
+      background: var(--white); border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .save-bar p { font-size: 13px; color: var(--sub); }
+    .save-status { font-size: 13px; font-weight: 600; min-width: 140px; text-align: right; }
+    .save-status.ok  { color: var(--success); }
+    .save-status.err { color: var(--danger); }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div id="login-screen">
+  <div class="login-card">
+    <img src="logo-white.svg" alt="GrowthOn Marketing" />
+    <h2>Admin Panel</h2>
+    <p>Sign in to manage leads and content</p>
+    <form id="loginForm" novalidate>
+      <div class="login-field">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="itzik@growthon-m.com" required />
+      </div>
+      <div class="login-field">
+        <label>Password</label>
+        <input type="password" id="loginPass" placeholder="••••••••••••" required />
+      </div>
+      <div class="login-error" id="loginError"></div>
+      <button type="submit" class="login-btn">Sign In →</button>
+    </form>
+  </div>
+</div>
+
+<!-- ══ DASHBOARD ══ -->
+<div id="dashboard">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="logo-white.svg" alt="GrowthOn" />
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-tab="leads">
+        <span class="icon">📊</span> Leads
+      </button>
+      <button class="nav-item" data-tab="content">
+        <span class="icon">✏️</span> Content
+      </button>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="logout-btn" id="logoutBtn">↩ Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- ── LEADS PANEL ── -->
+    <div id="panel-leads" class="panel active">
+      <div class="main-header">
+        <div>
+          <h1>Leads</h1>
+          <div class="subtitle">All form submissions from the landing page</div>
+        </div>
+        <div class="header-actions">
+          <button class="btn-action btn-secondary" id="exportBtn">⬇ Export CSV</button>
+          <button class="btn-action btn-primary" id="refreshBtn">↻ Refresh</button>
+        </div>
+      </div>
+
+      <div style="padding: 28px 36px; flex:1;">
+        <div class="leads-stats">
+          <div class="stat-card">
+            <div class="label">Total Leads</div>
+            <div class="value" id="statTotal">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">This Month</div>
+            <div class="value" id="statMonth">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">This Week</div>
+            <div class="value" id="statWeek">—</div>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-toolbar">
+            <input type="search" class="search-input" id="searchInput" placeholder="Search by name, email, company…" />
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Name</th>
+                  <th>Company</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Message</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="leadsBody">
+                <tr class="empty-row"><td colspan="7">Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CONTENT PANEL ── -->
+    <div id="panel-content" class="panel">
+      <div class="main-header">
+        <div>
+          <h1>Content Editor</h1>
+          <div class="subtitle">Edit text on the landing page — changes go live immediately</div>
+        </div>
+      </div>
+
+      <div style="padding: 28px 36px; padding-bottom: 80px;">
+        <div class="content-sections" id="contentSections">
+
+          <!-- Hero -->
+          <div class="cs-card open">
+            <div class="cs-header">
+              <h3>Hero Section</h3>
+              <span class="cs-toggle">▾</span>
+            </div>
+            <div class="cs-body">
+              <div class="cs-field">
+                <label>Title (HTML — use &lt;br/&gt; for line breaks, &lt;em&gt; for accent)</label>
+                <textarea data-key="hero_title" rows="3" placeholder="From Social<br/>Network to<br/><em>Real Growth</em>"></textarea>
+              </div>
+              <div class="cs-field">
+                <label>Body Text</label>
+                <textarea data-key="hero_body" rows="3" placeholder="Precise, proactive, and programmatic..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- About -->
+          <div class="cs-card open">
+            <div class="cs-header">
+              <h3>About Section</h3>
+              <span class="cs-toggle">▾</span>
+            </div>
+            <div class="cs-body">
+              <div class="cs-field">
+                <label>Title (HTML)</label>
+                <input type="text" data-key="about_title" placeholder="Growing with<br/><span class='text-blue'>GrowthOn</span>" />
+              </div>
+              <div class="cs-field">
+                <label>Paragraph 1</label>
+                <textarea data-key="about_body_1" rows="3"></textarea>
+              </div>
+              <div class="cs-field">
+                <label>Paragraph 2</label>
+                <textarea data-key="about_body_2" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Values -->
+          <div class="cs-card">
+            <div class="cs-header">
+              <h3>Services / Values Section</h3>
+              <span class="cs-toggle">▾</span>
+            </div>
+            <div class="cs-body">
+              <div class="cs-field">
+                <label>Section Title (HTML)</label>
+                <input type="text" data-key="values_title" placeholder="Four Layers,<br/><span>Fourfold Lead Generation</span>" />
+              </div>
+              <div class="cs-field">
+                <label>Subtitle</label>
+                <textarea data-key="values_sub" rows="2"></textarea>
+              </div>
+              <hr style="border:none; border-top:1px solid var(--border);" />
+              <div class="cs-row">
+                <div class="cs-field">
+                  <label>Card 1 — Title</label>
+                  <input type="text" data-key="values_card_1_label" />
+                </div>
+                <div class="cs-field">
+                  <label>Card 1 — Subtitle</label>
+                  <input type="text" data-key="values_card_1_sublabel" />
+                </div>
+              </div>
+              <div class="cs-field">
+                <label>Card 1 — Description</label>
+                <textarea data-key="values_card_1_desc" rows="2"></textarea>
+              </div>
+              <div class="cs-row">
+                <div class="cs-field">
+                  <label>Card 2 — Title</label>
+                  <input type="text" data-key="values_card_2_label" />
+                </div>
+                <div class="cs-field">
+                  <label>Card 2 — Subtitle</label>
+                  <input type="text" data-key="values_card_2_sublabel" />
+                </div>
+              </div>
+              <div class="cs-field">
+                <label>Card 2 — Description</label>
+                <textarea data-key="values_card_2_desc" rows="2"></textarea>
+              </div>
+              <div class="cs-row">
+                <div class="cs-field">
+                  <label>Card 3 — Title</label>
+                  <input type="text" data-key="values_card_3_label" />
+                </div>
+                <div class="cs-field">
+                  <label>Card 3 — Subtitle</label>
+                  <input type="text" data-key="values_card_3_sublabel" />
+                </div>
+              </div>
+              <div class="cs-field">
+                <label>Card 3 — Description</label>
+                <textarea data-key="values_card_3_desc" rows="2"></textarea>
+              </div>
+              <div class="cs-row">
+                <div class="cs-field">
+                  <label>Card 4 — Title</label>
+                  <input type="text" data-key="values_card_4_label" />
+                </div>
+                <div class="cs-field">
+                  <label>Card 4 — Subtitle</label>
+                  <input type="text" data-key="values_card_4_sublabel" />
+                </div>
+              </div>
+              <div class="cs-field">
+                <label>Card 4 — Description</label>
+                <textarea data-key="values_card_4_desc" rows="2"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonials -->
+          <div class="cs-card">
+            <div class="cs-header">
+              <h3>Testimonials</h3>
+              <span class="cs-toggle">▾</span>
+            </div>
+            <div class="cs-body">
+              <div class="cs-field">
+                <label>Section Title (HTML)</label>
+                <input type="text" data-key="testimonials_title" placeholder="Clients don't just grow.<br/>They break records." />
+              </div>
+              <hr style="border:none; border-top:1px solid var(--border);" />
+              <div id="testimonialsEditor"></div>
+            </div>
+          </div>
+
+          <!-- Contact -->
+          <div class="cs-card open">
+            <div class="cs-header">
+              <h3>Contact / CTA Section</h3>
+              <span class="cs-toggle">▾</span>
+            </div>
+            <div class="cs-body">
+              <div class="cs-field">
+                <label>Title (HTML)</label>
+                <input type="text" data-key="contact_title" placeholder="Get a custom<br/><span>GrowthOn plan</span>" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="save-bar">
+        <p>Changes are applied to the live site immediately after saving.</p>
+        <div style="display:flex;gap:12px;align-items:center;">
+          <span class="save-status" id="saveStatus"></span>
+          <button class="btn-action btn-primary" id="saveContentBtn">Save All Changes</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── Config ──
+const SUPABASE_URL      = 'YOUR_SUPABASE_PROJECT_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// ── Build testimonial editor fields ──
+const tEditor = document.getElementById('testimonialsEditor');
+for (let i = 1; i <= 5; i++) {
+  tEditor.innerHTML += `
+    <div style="padding:12px 0;border-top:1px solid var(--border)">
+      <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">Testimonial ${i}</div>
+      <div class="cs-row" style="margin-bottom:10px">
+        <div class="cs-field"><label>Name</label><input type="text" data-key="t${i}_name" /></div>
+        <div class="cs-field"><label>Title / Role</label><input type="text" data-key="t${i}_role" /></div>
+      </div>
+      <div class="cs-field"><label>Text</label><textarea data-key="t${i}_text" rows="2"></textarea></div>
+    </div>`;
+}
+
+// ── Accordion ──
+document.querySelectorAll('.cs-header').forEach(h => {
+  h.addEventListener('click', () => {
+    const card = h.closest('.cs-card');
+    card.classList.toggle('open');
+  });
+});
+
+// ── Tabs ──
+document.querySelectorAll('.nav-item').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ── Auth ──
+async function checkSession() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (session) showDashboard();
+}
+
+document.getElementById('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass  = document.getElementById('loginPass').value;
+  const errEl = document.getElementById('loginError');
+  const btn   = e.target.querySelector('button');
+  btn.textContent = 'Signing in…';
+  btn.disabled = true;
+  errEl.textContent = '';
+
+  const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+  if (error) {
+    errEl.textContent = 'Invalid email or password.';
+    btn.textContent = 'Sign In →';
+    btn.disabled = false;
+  } else {
+    showDashboard();
+  }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+  await sb.auth.signOut();
+  document.getElementById('dashboard').classList.remove('visible');
+  document.getElementById('login-screen').classList.remove('hidden');
+});
+
+function showDashboard() {
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('dashboard').classList.add('visible');
+  loadLeads();
+  loadContent();
+}
+
+// ── Leads ──
+let allLeads = [];
+
+async function loadLeads() {
+  document.getElementById('leadsBody').innerHTML = '<tr class="empty-row"><td colspan="7">Loading…</td></tr>';
+  const { data, error } = await sb.from('leads').select('*').order('created_at', { ascending: false });
+  if (error || !data) {
+    document.getElementById('leadsBody').innerHTML = '<tr class="empty-row"><td colspan="7">Error loading leads.</td></tr>';
+    return;
+  }
+  allLeads = data;
+  renderLeads(allLeads);
+  updateStats(allLeads);
+}
+
+function updateStats(leads) {
+  const now   = new Date();
+  const month = leads.filter(l => new Date(l.created_at).getMonth() === now.getMonth()).length;
+  const week  = leads.filter(l => (now - new Date(l.created_at)) < 7 * 86400000).length;
+  document.getElementById('statTotal').textContent = leads.length;
+  document.getElementById('statMonth').textContent = month;
+  document.getElementById('statWeek').textContent  = week;
+}
+
+function renderLeads(leads) {
+  const tbody = document.getElementById('leadsBody');
+  if (!leads.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No leads yet.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = leads.map(l => `
+    <tr>
+      <td class="td-date">${new Date(l.created_at).toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'})}</td>
+      <td><strong>${esc(l.name || '')}</strong></td>
+      <td>${esc(l.company || '')}</td>
+      <td class="td-email">${esc(l.email || '')}</td>
+      <td>${esc(l.phone || '')}</td>
+      <td class="td-msg" title="${esc(l.message || '')}">${esc(l.message || '')}</td>
+      <td><button class="delete-btn" data-id="${l.id}" title="Delete">🗑</button></td>
+    </tr>`).join('');
+
+  tbody.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      if (!confirm('Delete this lead?')) return;
+      await sb.from('leads').delete().eq('id', btn.dataset.id);
+      loadLeads();
+    });
+  });
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  const q = e.target.value.toLowerCase();
+  renderLeads(allLeads.filter(l =>
+    [l.name, l.company, l.email, l.phone, l.message].some(v => (v||'').toLowerCase().includes(q))
+  ));
+});
+
+document.getElementById('refreshBtn').addEventListener('click', loadLeads);
+
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const headers = ['Date','Name','Company','Email','Phone','Message'];
+  const rows = allLeads.map(l => [
+    new Date(l.created_at).toLocaleDateString('en-GB'),
+    l.name, l.company, l.email, l.phone,
+    (l.message || '').replace(/\n/g,' ')
+  ].map(v => `"${(v||'').replace(/"/g,'""')}"`).join(','));
+  const csv = [headers.join(','), ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+  a.download = `growthon-leads-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+});
+
+// ── Content ──
+async function loadContent() {
+  const { data } = await sb.from('content').select('key, value');
+  if (!data) return;
+  const map = Object.fromEntries(data.map(r => [r.key, r.value]));
+  document.querySelectorAll('[data-key]').forEach(el => {
+    if (map[el.dataset.key] !== undefined) el.value = map[el.dataset.key];
+  });
+}
+
+document.getElementById('saveContentBtn').addEventListener('click', async () => {
+  const btn    = document.getElementById('saveContentBtn');
+  const status = document.getElementById('saveStatus');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+  status.textContent = '';
+  status.className = 'save-status';
+
+  const fields = document.querySelectorAll('[data-key]');
+  const upserts = Array.from(fields).map(el => ({
+    key: el.dataset.key,
+    value: el.value,
+    updated_at: new Date().toISOString()
+  }));
+
+  const { error } = await sb.from('content').upsert(upserts, { onConflict: 'key' });
+  if (error) {
+    status.textContent = '✗ Error saving';
+    status.className = 'save-status err';
+  } else {
+    status.textContent = '✓ Saved successfully';
+    status.className = 'save-status ok';
+  }
+  btn.disabled = false;
+  btn.textContent = 'Save All Changes';
+  setTimeout(() => { status.textContent = ''; status.className = 'save-status'; }, 4000);
+});
+
+// ── Init ──
+checkSession();
+</script>
+</body>
+</html>

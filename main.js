@@ -1,5 +1,38 @@
 gsap.registerPlugin(ScrollTrigger);
 
+// ── Config — fill in after Supabase + EmailJS setup ──
+const SUPABASE_URL      = 'YOUR_SUPABASE_PROJECT_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const EMAILJS_PUBLIC_KEY  = 'YOUR_EMAILJS_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID  = 'YOUR_EMAILJS_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_EMAILJS_TEMPLATE_ID';
+
+const _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
+// ── Load dynamic content from Supabase (admin edits) ──
+async function loadContent() {
+  try {
+    const { data } = await _sb.from('content').select('key, value');
+    if (!data) return;
+    const map = Object.fromEntries(data.map(r => [r.key, r.value]));
+    const apply = (sel, key, attr = 'textContent') => {
+      const el = document.querySelector(sel);
+      if (el && map[key]) attr === 'html' ? (el.innerHTML = map[key]) : (el[attr] = map[key]);
+    };
+    apply('.hero__title',              'hero_title', 'html');
+    apply('.hero__body',               'hero_body');
+    apply('.about__title',             'about_title', 'html');
+    apply('.about__body:nth-of-type(1)','about_body_1');
+    apply('.about__body:nth-of-type(2)','about_body_2');
+    apply('.values__title',            'values_title', 'html');
+    apply('.values__sub',              'values_sub');
+    apply('.testimonials__title',      'testimonials_title', 'html');
+    apply('.contact__title',           'contact_title', 'html');
+  } catch(e) { /* silently fail — hardcoded defaults remain */ }
+}
+loadContent();
+
 // ── Mobile nav burger ──
 const burger = document.getElementById('burger');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -85,14 +118,44 @@ ScrollTrigger.create({
   onToggle: (self) => { floatCta.style.opacity = self.isActive ? '0' : '1'; }
 });
 
-// ── Form submit ──
-document.getElementById('contactForm').addEventListener('submit', e => {
+// ── Form submit → EmailJS + Supabase ──
+document.getElementById('contactForm').addEventListener('submit', async e => {
   e.preventDefault();
-  const btn = e.target.querySelector('button[type=submit]');
-  btn.textContent = 'Message sent ✓';
-  btn.style.background = 'var(--mint)';
+  const form = e.target;
+  const btn  = form.querySelector('button[type=submit]');
+  const btnLabel = btn.querySelector('.btn-label');
+  btnLabel.textContent = 'Sending...';
   btn.disabled = true;
-  gsap.from(btn, { scale: .95, duration: .3, ease: 'back.out' });
+
+  const data = {
+    name:    form.name.value.trim(),
+    company: form.company.value.trim(),
+    email:   form.email.value.trim(),
+    phone:   form.phone.value.trim(),
+    message: form.message.value.trim(),
+  };
+
+  try {
+    await Promise.all([
+      _sb.from('leads').insert([data]),
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        from_name:  data.name,
+        from_email: data.email,
+        company:    data.company,
+        phone:      data.phone,
+        message:    data.message,
+        to_email:   'itzik@growthon-m.com',
+      }),
+    ]);
+    btnLabel.textContent = 'Message Sent ✓';
+    btn.style.background = 'var(--mint)';
+    gsap.from(btn, { scale: .95, duration: .3, ease: 'back.out' });
+    form.reset();
+  } catch(err) {
+    btnLabel.textContent = 'Send Message';
+    btn.disabled = false;
+    alert('Something went wrong. Please try again.');
+  }
 });
 
 // ── Hero glow parallax ──
