@@ -267,10 +267,10 @@ img { display: block; max-width: 100%; }
   background: var(--grey-bg);
   border-top: 1px solid var(--grey-bdr);
   border-bottom: 1px solid var(--grey-bdr);
-  padding: 20px 0 0;
+  padding: 0;
 }
 .clients__header {
-  padding-bottom: 16px;
+  padding: 20px 0 12px;
 }
 .clients__label-text {
   font-family: var(--font-h); font-size: 12px; font-weight: 500;
@@ -278,19 +278,40 @@ img { display: block; max-width: 100%; }
 }
 .clients__label-text strong { color: var(--dark); font-weight: 700; }
 
+/* ── Desktop: static row ── */
+.clients__static {
+  display: flex; align-items: center;
+  border-top: 1px solid var(--grey-bdr);
+}
+.clients__static .clients__logo-wrap {
+  flex: 1;
+  border-right: 1px solid var(--grey-bdr);
+  height: 100px;
+  padding: 18px 28px;
+}
+.clients__static .clients__logo-wrap:last-child { border-right: none; }
+
+/* ── Mobile: marquee (hidden on desktop) ── */
 .clients__marquee {
-  display: block;
+  display: none;
   overflow: hidden; position: relative; width: 100%;
+  border-top: 1px solid var(--grey-bdr);
 }
 .clients__marquee::before, .clients__marquee::after {
-  content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none;
+  content: ''; position: absolute; top: 0; bottom: 0; width: 40px; z-index: 2; pointer-events: none;
 }
 .clients__marquee::before { left: 0; background: linear-gradient(to right, var(--grey-bg), transparent); }
-.clients__marquee::after  { right: 0; background: linear-gradient(to left,  var(--grey-bg), transparent); }
+.clients__marquee::after  { right: 0; background: linear-gradient(to left, var(--grey-bg), transparent); }
 .clients__marquee-track {
   display: flex; align-items: center;
   width: max-content;
   animation: clients-scroll 20s linear infinite;
+}
+.clients__marquee .clients__logo-wrap {
+  width: 160px; height: 90px;
+  padding: 16px 22px;
+  border-right: 1px solid var(--grey-bdr);
+  flex-shrink: 0;
 }
 @keyframes clients-scroll {
   from { transform: translateX(0); }
@@ -299,23 +320,15 @@ img { display: block; max-width: 100%; }
 
 .clients__logo-wrap {
   display: flex; align-items: center; justify-content: center;
-  width: 200px; height: 88px; flex-shrink: 0;
-  padding: 18px 28px;
-  border-left: 1px solid var(--grey-bdr);
 }
 .clients__logo {
   width: 100%; height: 100%;
   object-fit: contain;
   display: block;
   transition: opacity .25s;
-  opacity: .85;
+  opacity: .9;
 }
 .clients__logo-wrap:hover .clients__logo { opacity: 1; }
-.clients__logo--dark-bg {
-  background: #0D1B2A;
-  border-radius: 6px;
-  padding: 8px 12px;
-}
 
 /* ============================================================
    ABOUT STRIP
@@ -629,7 +642,9 @@ img { display: block; max-width: 100%; }
   .hero__scroll-hint { display: none; }
 
   /* Clients */
-  .clients__logo-wrap { width: 160px; height: 72px; padding: 14px 20px; }
+  .clients__static { display: none; }
+  .clients__marquee { display: block; }
+  .clients__marquee .clients__logo-wrap { width: 150px; height: 86px; }
 
   /* About */
   .about { padding: 72px 0; }
@@ -696,7 +711,7 @@ img { display: block; max-width: 100%; }
   .hero__mosaic-img { border-radius: 8px; }
 
   /* Clients */
-  .clients__logo-wrap { width: 140px; height: 64px; padding: 12px 16px; }
+  .clients__marquee .clients__logo-wrap { width: 140px; height: 80px; padding: 14px 18px; }
 
   /* About */
   .about { padding: 60px 0; }
