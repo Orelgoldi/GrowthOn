@@ -526,15 +526,14 @@ img { display: block; max-width: 100%; }
 }
 .contact__hero-img {
   position: relative;
-  display: flex; align-items: flex-end; justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   overflow: hidden;
 }
 .contact__hero-img img {
-  width: 85%;
-  max-width: 480px;
+  width: 92%;
+  max-width: 540px;
   object-fit: contain;
-  object-position: bottom;
-  transform: translateY(4%);
+  transform: translateY(-8%);
   filter: drop-shadow(0 -20px 40px rgba(35,0,208,.4));
 }
 .contact__hero-text {
