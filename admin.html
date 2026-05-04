@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GrowthOn Admin</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans:wght@400;500&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <style>
     :root {
       --blue:    #2300D0;
@@ -195,11 +194,11 @@
     <form id="loginForm" novalidate>
       <div class="login-field">
         <label>Email</label>
-        <input type="email" id="loginEmail" placeholder="itzik@growthon-m.com" required />
+        <input type="email" id="loginEmail" placeholder="itzik@growthon-m.com" autocomplete="username" required />
       </div>
       <div class="login-field">
         <label>Password</label>
-        <input type="password" id="loginPass" placeholder="••••••••••••" required />
+        <input type="password" id="loginPass" placeholder="••••••••••••" autocomplete="current-password" required />
       </div>
       <div class="login-error" id="loginError"></div>
       <button type="submit" class="login-btn">Sign In →</button>
@@ -247,15 +246,15 @@
         <div class="leads-stats">
           <div class="stat-card">
             <div class="label">Total Leads</div>
-            <div class="value" id="statTotal">—</div>
+            <div class="value" id="statTotal">0</div>
           </div>
           <div class="stat-card">
             <div class="label">This Month</div>
-            <div class="value" id="statMonth">—</div>
+            <div class="value" id="statMonth">0</div>
           </div>
           <div class="stat-card">
             <div class="label">This Week</div>
-            <div class="value" id="statWeek">—</div>
+            <div class="value" id="statWeek">0</div>
           </div>
         </div>
 
@@ -277,7 +276,7 @@
                 </tr>
               </thead>
               <tbody id="leadsBody">
-                <tr class="empty-row"><td colspan="7">Loading…</td></tr>
+                <tr class="empty-row"><td colspan="7">No leads yet.</td></tr>
               </tbody>
             </table>
           </div>
@@ -290,7 +289,7 @@
       <div class="main-header">
         <div>
           <h1>Content Editor</h1>
-          <div class="subtitle">Edit text on the landing page — changes go live immediately</div>
+          <div class="subtitle">Edit text on the landing page — changes go live immediately after saving</div>
         </div>
       </div>
 
@@ -324,7 +323,7 @@
             <div class="cs-body">
               <div class="cs-field">
                 <label>Title (HTML)</label>
-                <input type="text" data-key="about_title" placeholder="Growing with<br/><span class='text-blue'>GrowthOn</span>" />
+                <input type="text" data-key="about_title" />
               </div>
               <div class="cs-field">
                 <label>Paragraph 1</label>
@@ -346,7 +345,7 @@
             <div class="cs-body">
               <div class="cs-field">
                 <label>Section Title (HTML)</label>
-                <input type="text" data-key="values_title" placeholder="Four Layers,<br/><span>Fourfold Lead Generation</span>" />
+                <input type="text" data-key="values_title" />
               </div>
               <div class="cs-field">
                 <label>Subtitle</label>
@@ -354,61 +353,25 @@
               </div>
               <hr style="border:none; border-top:1px solid var(--border);" />
               <div class="cs-row">
-                <div class="cs-field">
-                  <label>Card 1 — Title</label>
-                  <input type="text" data-key="values_card_1_label" />
-                </div>
-                <div class="cs-field">
-                  <label>Card 1 — Subtitle</label>
-                  <input type="text" data-key="values_card_1_sublabel" />
-                </div>
+                <div class="cs-field"><label>Card 1 — Title</label><input type="text" data-key="values_card_1_label" /></div>
+                <div class="cs-field"><label>Card 1 — Subtitle</label><input type="text" data-key="values_card_1_sublabel" /></div>
               </div>
-              <div class="cs-field">
-                <label>Card 1 — Description</label>
-                <textarea data-key="values_card_1_desc" rows="2"></textarea>
-              </div>
+              <div class="cs-field"><label>Card 1 — Description</label><textarea data-key="values_card_1_desc" rows="2"></textarea></div>
               <div class="cs-row">
-                <div class="cs-field">
-                  <label>Card 2 — Title</label>
-                  <input type="text" data-key="values_card_2_label" />
-                </div>
-                <div class="cs-field">
-                  <label>Card 2 — Subtitle</label>
-                  <input type="text" data-key="values_card_2_sublabel" />
-                </div>
+                <div class="cs-field"><label>Card 2 — Title</label><input type="text" data-key="values_card_2_label" /></div>
+                <div class="cs-field"><label>Card 2 — Subtitle</label><input type="text" data-key="values_card_2_sublabel" /></div>
               </div>
-              <div class="cs-field">
-                <label>Card 2 — Description</label>
-                <textarea data-key="values_card_2_desc" rows="2"></textarea>
-              </div>
+              <div class="cs-field"><label>Card 2 — Description</label><textarea data-key="values_card_2_desc" rows="2"></textarea></div>
               <div class="cs-row">
-                <div class="cs-field">
-                  <label>Card 3 — Title</label>
-                  <input type="text" data-key="values_card_3_label" />
-                </div>
-                <div class="cs-field">
-                  <label>Card 3 — Subtitle</label>
-                  <input type="text" data-key="values_card_3_sublabel" />
-                </div>
+                <div class="cs-field"><label>Card 3 — Title</label><input type="text" data-key="values_card_3_label" /></div>
+                <div class="cs-field"><label>Card 3 — Subtitle</label><input type="text" data-key="values_card_3_sublabel" /></div>
               </div>
-              <div class="cs-field">
-                <label>Card 3 — Description</label>
-                <textarea data-key="values_card_3_desc" rows="2"></textarea>
-              </div>
+              <div class="cs-field"><label>Card 3 — Description</label><textarea data-key="values_card_3_desc" rows="2"></textarea></div>
               <div class="cs-row">
-                <div class="cs-field">
-                  <label>Card 4 — Title</label>
-                  <input type="text" data-key="values_card_4_label" />
-                </div>
-                <div class="cs-field">
-                  <label>Card 4 — Subtitle</label>
-                  <input type="text" data-key="values_card_4_sublabel" />
-                </div>
+                <div class="cs-field"><label>Card 4 — Title</label><input type="text" data-key="values_card_4_label" /></div>
+                <div class="cs-field"><label>Card 4 — Subtitle</label><input type="text" data-key="values_card_4_sublabel" /></div>
               </div>
-              <div class="cs-field">
-                <label>Card 4 — Description</label>
-                <textarea data-key="values_card_4_desc" rows="2"></textarea>
-              </div>
+              <div class="cs-field"><label>Card 4 — Description</label><textarea data-key="values_card_4_desc" rows="2"></textarea></div>
             </div>
           </div>
 
@@ -421,7 +384,7 @@
             <div class="cs-body">
               <div class="cs-field">
                 <label>Section Title (HTML)</label>
-                <input type="text" data-key="testimonials_title" placeholder="Clients don't just grow.<br/>They break records." />
+                <input type="text" data-key="testimonials_title" />
               </div>
               <hr style="border:none; border-top:1px solid var(--border);" />
               <div id="testimonialsEditor"></div>
@@ -437,7 +400,7 @@
             <div class="cs-body">
               <div class="cs-field">
                 <label>Title (HTML)</label>
-                <input type="text" data-key="contact_title" placeholder="Get a custom<br/><span>GrowthOn plan</span>" />
+                <input type="text" data-key="contact_title" />
               </div>
             </div>
           </div>
@@ -458,11 +421,12 @@
 </div>
 
 <script>
-// ── Config ──
-const SUPABASE_URL      = 'YOUR_SUPABASE_PROJECT_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// ── Credentials (local auth — no server needed) ──
+const ADMIN_EMAIL = 'itzik@growthon-m.com';
+const ADMIN_PASS  = '7rnbMNxT7Y&8C1Im36XGLTjt';
+const SESSION_KEY = 'growthon_admin_session';
+const CONTENT_KEY = 'growthon_content';
+const LEADS_KEY   = 'growthon_leads';
 
 // ── Build testimonial editor fields ──
 const tEditor = document.getElementById('testimonialsEditor');
@@ -480,10 +444,7 @@ for (let i = 1; i <= 5; i++) {
 
 // ── Accordion ──
 document.querySelectorAll('.cs-header').forEach(h => {
-  h.addEventListener('click', () => {
-    const card = h.closest('.cs-card');
-    card.classList.toggle('open');
-  });
+  h.addEventListener('click', () => h.closest('.cs-card').classList.toggle('open'));
 });
 
 // ── Tabs ──
@@ -497,33 +458,26 @@ document.querySelectorAll('.nav-item').forEach(btn => {
 });
 
 // ── Auth ──
-async function checkSession() {
-  const { data: { session } } = await sb.auth.getSession();
-  if (session) showDashboard();
+function checkSession() {
+  if (sessionStorage.getItem(SESSION_KEY) === '1') showDashboard();
 }
 
-document.getElementById('loginForm').addEventListener('submit', async e => {
+document.getElementById('loginForm').addEventListener('submit', e => {
   e.preventDefault();
   const email = document.getElementById('loginEmail').value.trim();
   const pass  = document.getElementById('loginPass').value;
   const errEl = document.getElementById('loginError');
-  const btn   = e.target.querySelector('button');
-  btn.textContent = 'Signing in…';
-  btn.disabled = true;
-  errEl.textContent = '';
 
-  const { error } = await sb.auth.signInWithPassword({ email, password: pass });
-  if (error) {
-    errEl.textContent = 'Invalid email or password.';
-    btn.textContent = 'Sign In →';
-    btn.disabled = false;
-  } else {
+  if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+    sessionStorage.setItem(SESSION_KEY, '1');
     showDashboard();
+  } else {
+    errEl.textContent = 'Invalid email or password.';
   }
 });
 
-document.getElementById('logoutBtn').addEventListener('click', async () => {
-  await sb.auth.signOut();
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem(SESSION_KEY);
   document.getElementById('dashboard').classList.remove('visible');
   document.getElementById('login-screen').classList.remove('hidden');
 });
@@ -535,17 +489,13 @@ function showDashboard() {
   loadContent();
 }
 
-// ── Leads ──
+// ── Leads (localStorage) ──
 let allLeads = [];
 
-async function loadLeads() {
-  document.getElementById('leadsBody').innerHTML = '<tr class="empty-row"><td colspan="7">Loading…</td></tr>';
-  const { data, error } = await sb.from('leads').select('*').order('created_at', { ascending: false });
-  if (error || !data) {
-    document.getElementById('leadsBody').innerHTML = '<tr class="empty-row"><td colspan="7">Error loading leads.</td></tr>';
-    return;
-  }
-  allLeads = data;
+function loadLeads() {
+  try {
+    allLeads = JSON.parse(localStorage.getItem(LEADS_KEY) || '[]');
+  } catch(e) { allLeads = []; }
   renderLeads(allLeads);
   updateStats(allLeads);
 }
@@ -565,7 +515,7 @@ function renderLeads(leads) {
     tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No leads yet.</td></tr>';
     return;
   }
-  tbody.innerHTML = leads.map(l => `
+  tbody.innerHTML = leads.map((l, idx) => `
     <tr>
       <td class="td-date">${new Date(l.created_at).toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric'})}</td>
       <td><strong>${esc(l.name || '')}</strong></td>
@@ -573,13 +523,14 @@ function renderLeads(leads) {
       <td class="td-email">${esc(l.email || '')}</td>
       <td>${esc(l.phone || '')}</td>
       <td class="td-msg" title="${esc(l.message || '')}">${esc(l.message || '')}</td>
-      <td><button class="delete-btn" data-id="${l.id}" title="Delete">🗑</button></td>
+      <td><button class="delete-btn" data-idx="${idx}" title="Delete">🗑</button></td>
     </tr>`).join('');
 
   tbody.querySelectorAll('.delete-btn').forEach(btn => {
-    btn.addEventListener('click', async () => {
+    btn.addEventListener('click', () => {
       if (!confirm('Delete this lead?')) return;
-      await sb.from('leads').delete().eq('id', btn.dataset.id);
+      allLeads.splice(parseInt(btn.dataset.idx), 1);
+      localStorage.setItem(LEADS_KEY, JSON.stringify(allLeads));
       loadLeads();
     });
   });
@@ -607,44 +558,40 @@ document.getElementById('exportBtn').addEventListener('click', () => {
   ].map(v => `"${(v||'').replace(/"/g,'""')}"`).join(','));
   const csv = [headers.join(','), ...rows].join('\n');
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+  a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' }));
   a.download = `growthon-leads-${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
 });
 
-// ── Content ──
-async function loadContent() {
-  const { data } = await sb.from('content').select('key, value');
-  if (!data) return;
-  const map = Object.fromEntries(data.map(r => [r.key, r.value]));
+// ── Content (localStorage) ──
+function loadContent() {
+  let map = {};
+  try { map = JSON.parse(localStorage.getItem(CONTENT_KEY) || '{}'); } catch(e) {}
   document.querySelectorAll('[data-key]').forEach(el => {
     if (map[el.dataset.key] !== undefined) el.value = map[el.dataset.key];
   });
 }
 
-document.getElementById('saveContentBtn').addEventListener('click', async () => {
+document.getElementById('saveContentBtn').addEventListener('click', () => {
   const btn    = document.getElementById('saveContentBtn');
   const status = document.getElementById('saveStatus');
   btn.disabled = true;
   btn.textContent = 'Saving…';
-  status.textContent = '';
-  status.className = 'save-status';
 
-  const fields = document.querySelectorAll('[data-key]');
-  const upserts = Array.from(fields).map(el => ({
-    key: el.dataset.key,
-    value: el.value,
-    updated_at: new Date().toISOString()
-  }));
+  const map = {};
+  document.querySelectorAll('[data-key]').forEach(el => {
+    map[el.dataset.key] = el.value;
+  });
 
-  const { error } = await sb.from('content').upsert(upserts, { onConflict: 'key' });
-  if (error) {
-    status.textContent = '✗ Error saving';
-    status.className = 'save-status err';
-  } else {
+  try {
+    localStorage.setItem(CONTENT_KEY, JSON.stringify(map));
     status.textContent = '✓ Saved successfully';
     status.className = 'save-status ok';
+  } catch(e) {
+    status.textContent = '✗ Error saving';
+    status.className = 'save-status err';
   }
+
   btn.disabled = false;
   btn.textContent = 'Save All Changes';
   setTimeout(() => { status.textContent = ''; status.className = 'save-status'; }, 4000);
